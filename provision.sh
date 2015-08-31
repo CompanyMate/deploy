@@ -20,7 +20,7 @@ su $NAME <<'EOF'
 chmod 700 /home/$NAME/.ssh
 EOF
 echo $SSH >> /home/$NAME/.ssh/authorized_keys
-echo "$NAME ALL=(ALL:ALL) ALL" >> /etc/sudoers
+echo "$NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install Dependencies
 apt-get install -y build-essential libssl-dev nano wget curl memcached
