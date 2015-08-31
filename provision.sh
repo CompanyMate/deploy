@@ -22,7 +22,7 @@ chown $USER:$USER /home/$USER -R
 usermod -a -G www-data $USER
 
 # Install Dependencies
-apt-get install -y build-essential libssl-dev nano wget curl
+apt-get install -y build-essential libssl-dev nano wget curl memcached
 
 # Configure Timezone
 -ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
