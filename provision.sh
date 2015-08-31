@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -e -p "Enter your username: " NAME
+read -e -p "Enter your Username: " NAME
 read -e -p "Enter your SSH Key: " SSH
 
 # Update Server
