@@ -4,7 +4,7 @@ CompanyMate.com Deploy Script(s)
 ## Provision
 - Run the following command:
 ```
-curl -sS https://raw.githubusercontent.com/CompanyMate/deploy/master/provision.sh | sudo sh
+curl -s https://raw.githubusercontent.com/CompanyMate/deploy/master/provision.sh | sudo bash /dev/stdin domain appname name password ssh
 ```
 - Answer questions
 - Enjoy
