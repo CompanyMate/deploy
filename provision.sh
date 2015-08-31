@@ -17,10 +17,9 @@ addgroup $NAME
 useradd $NAME --create-home --shell /bin/bash --groups $NAME
 mkdir -p /home/$NAME/.ssh
 chmod 700 /home/$NAME/.ssh
-cat $SSH >> /home/$NAME/.ssh/authorized_keys
+echo "$SSH" >> /home/$NAME/.ssh/authorized_keys
 chown $NAME:$NAME /home/$NAME -R
-echo '$NAME ALL=(ALL:ALL) ALL' >> /etc/sudoers
-usermod -a -G www-data $NAME
+echo "$NAME ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Install Dependencies
 apt-get install -y build-essential libssl-dev nano wget curl memcached
@@ -99,15 +98,22 @@ echo "alias composer='/user/local/bin/composer'" >> /home/$NAME/.bashrc
 # Install and Configure Node.JS and NPM
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 apt-get install -y nodejs
+sudo chown -R /root/
 
 # Install and Configure Grunt
+su $NAME <<'EOF'
 sudo npm install -g grunt-cli
+EOF
 
 # Install and Configure Gulp
+su $NAME <<'EOF'
 sudo npm install -g gulp
+EOF
 
 # Install and Configure Bower
+su $NAME <<'EOF'
 sudo npm install -g bower
+EOF
 
 # Install and Configure Redis
 apt-get install -y redis-server redis-tools
@@ -116,8 +122,12 @@ apt-get install -y redis-server redis-tools
 apt-get install -y git
 
 # Install and Configure Haraka
+su $NAME <<'EOF'
 sudo npm install -g Haraka
+EOF
+su $NAME <<'EOF'
 haraka -i /usr/share/mail
+EOF
 
 # Install and Configure Laravel
 su $NAME <<'EOF'
