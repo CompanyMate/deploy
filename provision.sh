@@ -14,11 +14,12 @@ apt-get upgrade -y
 addgroup $NAME
 
 # Create User
-useradd $NAME --create-home --shell /bin/bash --groups $NAME
+sudo su -c "useradd $NAME -s /bin/bash -m -g sudo -G $NAME"
 mkdir -p /home/$NAME/.ssh
+su $NAME <<'EOF'
 chmod 700 /home/$NAME/.ssh
-echo "$SSH" >> /home/$NAME/.ssh/authorized_keys
-chown $NAME:$NAME /home/$NAME -R
+EOF
+echo $SSH >> /home/$NAME/.ssh/authorized_keys
 echo "$NAME ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Install Dependencies
