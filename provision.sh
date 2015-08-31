@@ -115,7 +115,9 @@ apt-get install -y redis-server redis-tools
 apt-get install -y git
 
 # Install and Configure Haraka
-
+npm install -g Haraka
+haraka -i /usr/share/mail
+haraka -c /usr/share/mail/.
 
 # Install and Configure Laravel
 composer global require "laravel/installer=~1.1"
