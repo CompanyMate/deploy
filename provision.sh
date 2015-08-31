@@ -19,6 +19,7 @@ mkdir -p /home/$USER/.ssh
 chmod 700 /home/$USER/.ssh
 cat $SSH >> /home/$USER/.ssh/authorized_keys
 chown $USER:$USER /home/$USER -R
+echo '$USER ALL=(ALL:ALL) ALL' >> /etc/sudoers
 usermod -a -G www-data $USER
 
 # Install Dependencies
