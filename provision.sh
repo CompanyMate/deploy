@@ -46,7 +46,6 @@ ufw enable -y
 
 # Install and Configure Nginx
 apt-get install -y nginx
-sed -i "s/user www-data;/user $NAME;/" /etc/nginx/nginx.conf
 mkdir -p /var/www/html
 cat <<EOF > /etc/nginx/sites-available/default
 server {
@@ -92,6 +91,7 @@ service php5 restart
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 printf "\nPATH=\"/home/$NAME/.composer/vendor/bin:\$PATH\"\n" | tee -a /home/$NAME/.profile
+echo "alias composer='/user/local/bin/composer'" >> /home/$NAME/.bashrc
 
 # Install and Configure MySQL
 
@@ -120,19 +120,29 @@ sudo npm install -g Haraka
 haraka -i /usr/share/mail
 
 # Install and Configure Laravel
-composer global require "laravel/installer=~1.1"
+su $NAME <<'EOF'
+/usr/local/bin/composer global require "laravel/installer=~1.1"
+EOF
+echo "alias laravel='/home/$NAME/.composer/bin/laravel/laravel'" >> /home/$NAME/.bashrc
 
 # Install and Configure Lumen
-composer global require "laravel/lumen-installer=~1.0"
+su $NAME <<'EOF'
+/usr/local/bin/composer global require "laravel/lumen-installer=~1.0"
+EOF
+echo "alias laravel='/home/$NAME/.composer/bin/lumen/lumen'" >> /home/$NAME/.bashrc
 
 # Install and Configure Envoy
-composer global require "laravel/envoy=~1.0"
+su $NAME <<'EOF'
+/usr/local/bin/composer global require "laravel/envoy=~1.0"
+EOF
+echo "alias laravel='/home/$NAME/.composer/bin/envoy/envoy'" >> /home/$NAME/.bashrc
 
 # Install and Configure Application
 cd /var/www/html
 laravel new $APPNAME
 cd /var/www/html/$APPNAME
 npm install
+service nginx restart
 
 # Configure SSH
 sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
