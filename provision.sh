@@ -71,7 +71,7 @@ server {
     fastcgi_split_path_info ^(.+\\.php)(/.+)\$;
     fastcgi_pass unix:/var/run/php5-fpm.sock; 
     fastcgi_index index.php;
-    include fastcgi.conf;
+    include fastcgi_params;
   }
 }
 EOF
@@ -140,20 +140,13 @@ echo "alias laravel='/home/$NAME/.composer/bin/laravel/laravel'" >> /home/$NAME/
 su $NAME <<'EOF'
 /usr/local/bin/composer global require "laravel/lumen-installer=~1.0"
 EOF
-echo "alias laravel='/home/$NAME/.composer/bin/lumen/lumen'" >> /home/$NAME/.bashrc
+echo "alias lumen='/home/$NAME/.composer/bin/lumen/lumen'" >> /home/$NAME/.bashrc
 
 # Install and Configure Envoy
 su $NAME <<'EOF'
 /usr/local/bin/composer global require "laravel/envoy=~1.0"
 EOF
-echo "alias laravel='/home/$NAME/.composer/bin/envoy/envoy'" >> /home/$NAME/.bashrc
-
-# Install and Configure Application
-cd /var/www/html
-laravel new $APPNAME
-cd /var/www/html/$APPNAME
-npm install
-service nginx restart
+echo "alias envoy='/home/$NAME/.composer/bin/envoy/envoy'" >> /home/$NAME/.bashrc
 
 # Configure SSH
 sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
