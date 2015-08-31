@@ -11,16 +11,16 @@ apt-get update
 apt-get-upgrade -y
 
 # Create Group
-addgroup $USER
+addgroup $NAME
 
 # Create User
-useradd $USER --create-home --shell /bin/bash --groups $USER
-mkdir -p /home/$USER/.ssh
-chmod 700 /home/$USER/.ssh
-cat $SSH >> /home/$USER/.ssh/authorized_keys
-chown $USER:$USER /home/$USER -R
-echo '$USER ALL=(ALL:ALL) ALL' >> /etc/sudoers
-usermod -a -G www-data $USER
+useradd $NAME --create-home --shell /bin/bash --groups $NAME
+mkdir -p /home/$NAME/.ssh
+chmod 700 /home/$NAME/.ssh
+cat $SSH >> /home/$NAME/.ssh/authorized_keys
+chown $NAME:$NAME /home/$NAME -R
+echo '$NAME ALL=(ALL:ALL) ALL' >> /etc/sudoers
+usermod -a -G www-data $NAME
 
 # Install Dependencies
 apt-get install -y build-essential libssl-dev nano wget curl memcached
@@ -46,7 +46,7 @@ ufw enable -y
 
 # Install and Configure Nginx
 apt-get install -y nginx
-sed -i "s/user www-data;/user $USER;/" /etc/nginx/nginx.conf
+sed -i "s/user www-data;/user $NAME;/" /etc/nginx/nginx.conf
 mkdir -p /var/www/html
 cat <<EOF > /etc/nginx/sites-available/default
 server {
@@ -91,7 +91,7 @@ service php5 restart
 # Install and Configure Composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-printf "\nPATH=\"/home/$USER/.composer/vendor/bin:\$PATH\"\n" | tee -a /home/$USER/.profile
+printf "\nPATH=\"/home/$NAME/.composer/vendor/bin:\$PATH\"\n" | tee -a /home/$NAME/.profile
 
 # Install and Configure MySQL
 
