@@ -8,7 +8,7 @@ read -e -p "Enter your SSH Key: " SSH
 
 # Update Server
 apt-get update
-apt-get-upgrade -y
+apt-get upgrade -y
 
 # Create Group
 addgroup $NAME
