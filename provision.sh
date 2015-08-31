@@ -101,13 +101,13 @@ curl -sL https://deb.nodesource.com/setup | sudo bash -
 apt-get install -y nodejs
 
 # Install and Configure Grunt
-npm install -g grunt-cli
+sudo npm install -g grunt-cli
 
 # Install and Configure Gulp
-npm install -g gulp
+sudo npm install -g gulp
 
 # Install and Configure Bower
-npm install -g bower
+sudo npm install -g bower
 
 # Install and Configure Redis
 apt-get install -y redis-server redis-tools
@@ -116,9 +116,8 @@ apt-get install -y redis-server redis-tools
 apt-get install -y git
 
 # Install and Configure Haraka
-npm install -g Haraka
+sudo npm install -g Haraka
 haraka -i /usr/share/mail
-haraka -c /usr/share/mail/.
 
 # Install and Configure Laravel
 composer global require "laravel/installer=~1.1"
