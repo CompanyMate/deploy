@@ -1,10 +1,16 @@
 #!/bin/bash
 
-read -e -p "Enter your Domain Name: " DOMAIN
-read -e -p "Enter your Application Name: " APPNAME
-read -e -p "Enter your Username: " NAME
-read -e -p "Enter your Password: " PASSWORD
-read -e -p "Enter your SSH Key: " SSH
+# read -e -p "Enter your Domain Name: " DOMAIN
+# read -e -p "Enter your Application Name: " APPNAME
+# read -e -p "Enter your Username: " NAME
+# read -e -p "Enter your Password: " PASSWORD
+# read -e -p "Enter your SSH Key: " SSH
+
+DOMAIN=$1
+APPNAME=$2
+NAME=$3
+PASSWORD=$4
+SSH=$5
 
 # Update Server
 apt-get update
@@ -42,7 +48,7 @@ echo "vm.vfs_cache_pressure = 50" >> /etc/sysctl.conf
 ufw allow 22/tcp
 ufw allow 80/tcp
 ufw allow 443/tcp
-ufw enable
+ufw enable -y
 
 # Install and Configure Nginx
 apt-get install -y nginx
@@ -80,7 +86,7 @@ service nginx restart
 
 # Install and Configure PHP-FPM
 apt-get install -y php5-fpm php5-curl php5-json php5-cgi php5-cli php5-redis php5-common php5-mcrypt \
-  php5-memcached php5-sqlite php5-mysql php5-oauth php5-imagick php5-imap php5-dev php5-pear \
+  php5-memcached php5-sqlite php5-mysql php5-oauth php5-imagick php5-imap php5-dev php-pear \
   php5-mysqlnd php5-apcu php5-gd php5-gmp php5-xdebug
 sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
