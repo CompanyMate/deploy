@@ -43,10 +43,6 @@ ufw allow 80/tcp
 ufw allow 443/tcp
 ufw enable
 
-# Configure SSH
-sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
-service ssh restart
-
 # Install and Configure Nginx
 apt-get install -y nginx
 sed -i "s/user www-data;/user $USER;/" /etc/nginx/nginx.conf
@@ -135,3 +131,7 @@ cd /var/www/html
 laravel new $APPNAME
 cd /var/www/html/$APPNAME
 npm install
+
+# Configure SSH
+sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+service ssh restart
