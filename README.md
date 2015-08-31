@@ -11,7 +11,7 @@ curl -sS https://raw.githubusercontent.com/CompanyMate/deploy/master/provision.s
 
 ## Provision does the following:
 - [x] Creates a new user and group
-- [ ] Gives new user sudo rights
+- [x] Gives new user sudo rights
 - [x] Disables root login
 - [x] Installs Memcached
 - [x] Installs NTP and configures Timezone
