@@ -48,17 +48,13 @@ echo "$NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Configure Fail2Ban
 apt-get install -y fail2ban
 
-# Run Installation as New User
-sudo su $NAME <<'EOS'
-cd ~/
-
 # Install and Configure Nginx
-sudo apt-get install -y nginx
-sudo mkdir -p /var/www/html/$APPNAME/current/public
-sudo cat <<EOF > /var/www/html/$APPNAME/current/public/index.php
+apt-get install -y nginx
+mkdir -p /var/www/html/$APPNAME/current/public
+cat <<EOF > /var/www/html/$APPNAME/current/public/index.php
 <?php echo ucase($APPNAME); ?>
 EOF
-sudo cat <<EOF > /etc/nginx/sites-available/default
+cat <<EOF > /etc/nginx/sites-available/default
 server {
   listen 80 default_server;
   listen [::]:80 default_server ipv6only=on;
@@ -86,26 +82,31 @@ server {
   }
 }
 EOF
-sudo service nginx restart
+service nginx restart
 
 # Install and Configure PHP-FPM
-sudo apt-get install -y php5-fpm php5-curl php5-json php5-cgi php5-cli php5-redis php5-common php5-mcrypt \
+apt-get install -y php5-fpm php5-curl php5-json php5-cgi php5-cli php5-redis php5-common php5-mcrypt \
   php5-memcached php5-sqlite php5-oauth php5-imagick php5-imap php5-dev php-pear php5-mysqlnd php5-apcu \
   php5-gd php5-gmp php5-xdebug
-sudo sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
-sudo ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
-sudo php5enmod mcrypt
-sudo service nginx restart
-sudo service php5 restart
+sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+php5enmod mcrypt
+service nginx restart
+service php5 restart
+
+# Install and Configure MySQL
+
+
+
+
+# Run Installation as New User
+sudo su $NAME <<'EOS'
+cd ~/
 
 # Install and Configure Composer
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
-sudo printf "\nPATH=\"/home/$NAME/.composer/vendor/bin:\$PATH\"\n" | tee -a /home/$NAME/.profile
-sudo echo "alias composer='/usr/local/bin/composer'" >> /home/$NAME/.bashrc
-
-# Install and Configure MySQL
-
+sudo echo "alias composer='/usr/local/bin/composer'" >> ~/.bashrc
 
 # Install and Configure Node.JS and NPM
 curl -sL https://deb.nodesource.com/setup | sudo bash -
@@ -132,14 +133,14 @@ sudo npm install -g Haraka
 
 # Install and Configure Laravel
 sudo composer global require "laravel/installer=~1.1"
-sudo echo "alias laravel='/home/$NAME/.composer/vendor/laravel/installer/laravel'" >> /home/$NAME/.bashrc
+sudo echo "alias laravel='~/.composer/vendor/laravel/installer/laravel'" >> ~/.bashrc
 
 # Install and Configure Lumen
 sudo composer global require "laravel/lumen-installer=~1.0"
-sudo echo "alias lumen='/home/$NAME/.composer/vendor/laravel/lumen/lumen'" >> /home/$NAME/.bashrc
+sudo echo "alias lumen='~/.composer/vendor/laravel/lumen/lumen'" >> ~/.bashrc
 
 # Install and Configure Envoy
 sudo /usr/local/bin/composer global require "laravel/envoy=~1.0"
-sudo echo "alias envoy='/home/$NAME/.composer/vendor/laravel/envoy/envoy'" >> /home/$NAME/.bashrc
+sudo echo "alias envoy='~/.composer/vendor/laravel/envoy/envoy'" >> ~/.bashrc
 
 EOS
