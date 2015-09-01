@@ -4,59 +4,59 @@ echo "==========================================================================
 echo " Downloading Scripts "
 echo "================================================================================"
 
-mkdir scripts &&& cd scripts
+sudo mkdir /scripts && cd /scripts
 
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/bower.sh > bower.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/composer.sh > composer.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/envoy.sh > envoy.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/git.sh > git.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/grunt.sh > grunt.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/gulp.sh > gulp.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/haraka.sh > haraka.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/laravel.sh > laravel.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/lumen.sh > lumen.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/mysql.sh > mysql.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/nginx.sh > nginx.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/nodejs.sh > nodejs.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/php-fpm.sh > php-fpm.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/redis.sh > redis.sh
-curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/security.sh > security.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/bower.sh > bower.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/composer.sh > composer.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/envoy.sh > envoy.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/git.sh > git.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/grunt.sh > grunt.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/gulp.sh > gulp.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/haraka.sh > haraka.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/laravel.sh > laravel.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/lumen.sh > lumen.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/mysql.sh > mysql.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/nginx.sh > nginx.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/nodejs.sh > nodejs.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/php-fpm.sh > php-fpm.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/redis.sh > redis.sh
+sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/security.sh > security.sh
 
 echo "================================================================================"
 echo " Securing Server "
 echo "================================================================================"
 
-sudo bash security.sh
+sudo bash /scripts/security.sh
 
 echo "================================================================================"
 echo " Installing Nginx "
 echo "================================================================================"
 
-sudo bash nginx.sh
+sudo bash /scripts/nginx.sh
 
 echo "================================================================================"
 echo " Installing PHP-FPM "
 echo "================================================================================"
 
-sudo bash php-fpm.sh
+sudo bash /scripts/php-fpm.sh
 
 echo "================================================================================"
 echo " Installing MySQL "
 echo "================================================================================"
 
-sudo bash mysql.sh
+sudo bash /scripts/mysql.sh
 
 echo "================================================================================"
 echo " Installing Redis "
 echo "================================================================================"
 
-sudo bash redis.sh
+sudo bash /scripts/redis.sh
 
 echo "================================================================================"
 echo " Installing Git "
 echo "================================================================================"
 
-sudo bash git.sh
+sudo bash /scripts/git.sh
 
 echo "================================================================================"
 echo " Installing Composer "
