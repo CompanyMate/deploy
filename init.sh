@@ -1,6 +1,16 @@
 #!/bin/bash
 
 echo "================================================================================"
+echo " Getting Info "
+echo "================================================================================"
+
+read -e -p "Enter your Domain Name: " DOMAIN
+read -e -p "Enter your Application Name: " APPNAME
+read -e -p "Enter your Username: " NAME
+read -e -p "Enter your Password: " PASSWORD
+read -e -p "Enter your SSH Key: " SSH
+
+echo "================================================================================"
 echo " Downloading Scripts "
 echo "================================================================================"
 
