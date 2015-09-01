@@ -23,6 +23,38 @@ sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/re
 sudo curl https://raw.githubusercontent.com/CompanyMate/deploy/master/scripts/security.sh > security.sh
 
 echo "================================================================================"
+echo " Updating Server "
+echo "================================================================================"
+
+sudo apt-get update
+sudo apt-get upgrade -y
+
+echo "================================================================================"
+echo " Installing Dependencies "
+echo "================================================================================"
+
+sudo apt-get install -y build-essential libssl-dev wget memcached
+
+echo "================================================================================"
+echo " Configuring Timezone "
+echo "================================================================================"
+
+sudo -ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+sudo apt-get install -y ntp
+
+echo "================================================================================"
+echo " Creating Swapfile "
+echo "================================================================================"
+
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo "/swapfile      none      swap      sw      0      0" >> /etc/fstab
+echo "vm.swapiness=10" >> /etc/sysctl.conf
+echo "vm.vfs_cache_pressure = 50" >> /etc/sysctl.conf
+
+echo "================================================================================"
 echo " Securing Server "
 echo "================================================================================"
 
@@ -111,3 +143,7 @@ echo " Installing Haraka "
 echo "================================================================================"
 
 
+
+echo "================================================================================"
+echo " Setup Complete! "
+echo "================================================================================"
